@@ -2,8 +2,12 @@ const express = require('express');
 
 const { findTodoWithId, handleFindErr, handleDelete } = require('./helper/functions');
 const todoDb = require('./db/todoDb');
-
+const { request } = require('express');
 const app = express();
+
+// MiddleWare
+// to get request body parsed
+app.use(express.json());
 
 // get all todos
 app.get('/api/todos', (req, res) => {
@@ -31,11 +35,26 @@ app.delete('/api/todos/:id', (req, res) => {
     return;
   }
 
-  // todel kad musu TodoDb yra const, mes rasim norimo istrinti index ir pasalinsim is masyvo.
   handleDelete(found);
 
   console.log(`deleted ${found.title}`);
   res.json({ deleted: found, todoDb });
+});
+
+// post todo
+app.post('/api/todos/', (req, res) => {
+  console.log(`server got body ${req.body}`);
+
+  const { title } = req.body;
+
+  const newTodo = {
+    id: 5,
+    title: title,
+    done: false,
+  };
+  todoDb.push(newTodo);
+
+  res.json({ msg: 'success', todoDb });
 });
 
 app.listen(3000, () => console.log('server is running'));
