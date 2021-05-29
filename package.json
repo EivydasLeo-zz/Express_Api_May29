@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/EivydasLeo/Express_Api_May29/issues"
   },
-  "homepage": "https://github.com/EivydasLeo/Express_Api_May29#readme"
+  "homepage": "https://github.com/EivydasLeo/Express_Api_May29#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
