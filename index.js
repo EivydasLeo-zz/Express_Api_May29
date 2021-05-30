@@ -1,9 +1,11 @@
 const express = require('express');
 
-const { findTodoWithId, handleFindErr, handleDelete } = require('./helper/functions');
+const { findTodoWithId, handleFindErr, handleDelete, addNewTodo } = require('./helper/functions');
 const todoDb = require('./db/todoDb');
 const { request } = require('express');
 const app = express();
+
+let id = 3; // last item id
 
 // MiddleWare
 // to get request body parsed
@@ -44,17 +46,14 @@ app.delete('/api/todos/:id', (req, res) => {
 // post todo
 app.post('/api/todos/', (req, res) => {
   console.log(`server got body ${req.body}`);
-
   const { title } = req.body;
-
-  const newTodo = {
-    id: 5,
-    title: title,
-    done: false,
-  };
-  todoDb.push(newTodo);
+  ++id;
+  addNewTodo(title, id);
 
   res.json({ msg: 'success', todoDb });
 });
+
+// update todo
+// api/todos  // put
 
 app.listen(3000, () => console.log('server is running'));

@@ -16,8 +16,18 @@ function handleDelete(found) {
   todoDb.splice(index, 1);
 }
 
+function addNewTodo(title, id) {
+  const newTodo = {
+    id: id,
+    title: title,
+    done: false,
+  };
+  todoDb.push(newTodo);
+}
+
 module.exports = {
   findTodoWithId,
   handleFindErr,
   handleDelete,
+  addNewTodo,
 };
